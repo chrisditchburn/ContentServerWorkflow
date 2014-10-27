@@ -1,5 +1,4 @@
-var app = angular.module('ContentServerWorkflow', ['ngCookies']);
-
+// CONFIGURATION FOR SETTING OTAGTOKEN AND OTCSTICKET IN HEADERS!
 app.run(function ($cookies, $http, $rootScope, $window) {
 
     /** bind the url of the gateway to the $rootScope object */
@@ -20,10 +19,11 @@ app.run(function ($cookies, $http, $rootScope, $window) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         data: $.param({username: 'Admin', password: 'livelink'})
     }).success(function (res) {
-        $http.defaults.headers.common.otcsticket = res.ticket;
-    });
+            $http.defaults.headers.common.otcsticket = res.ticket;
+        });
 });
 
+// CONTENT SERVER SERVICE!
 app.service('contentServerService', function ($http, $rootScope, $q) {
     var self = this;
 
@@ -73,6 +73,8 @@ app.service('contentServerService', function ($http, $rootScope, $q) {
     }
 });
 
+
+// DIRECTIVE THAT BINDS TAP TO SERVICE THAT UPLOADS FILE!
 app.directive('csFileUpload', function (contentServerService, $timeout) {
     return {
         restrict: 'A',
@@ -128,3 +130,8 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
         }
     }
 });
+
+'<div cs-file-upload>
+    <img src="img/camera.png" width="100"></img>
+    <p class="text-muted">Tap to upload a photo to Content Server and trigger a workflow.</p>
+</div>'
