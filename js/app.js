@@ -18,7 +18,7 @@ app.run(function ($cookies, $http, $rootScope, $window) {
         method:'POST',
         url: $rootScope._otagUrl +  '/contentserver/api/v1/auth',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        data: $.param({username: 'Admin', password: 'livelink'})
+        data: $.param({username: 'jibrahim', password: '**********'})
     }).success(function (res) {
         $http.defaults.headers.common.otcsticket = res.ticket;
     });
@@ -28,7 +28,7 @@ app.service('contentServerService', function ($http, $rootScope, $q) {
     var self = this;
 
     self.node = {
-        parent_id: 2339529,
+        parent_id: 13662,
         type: 144,
         description: 'Initiating a workflow from the mobile client (appworks)'
     };

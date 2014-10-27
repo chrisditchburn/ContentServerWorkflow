@@ -131,7 +131,13 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
     }
 });
 
+
+// THE HTML VIEW
 '<div cs-file-upload>
     <img src="img/camera.png" width="100"></img>
     <p class="text-muted">Tap to upload a photo to Content Server and trigger a workflow.</p>
 </div>'
+
+// THE REVERSE PROXY SETTINGS
+'- allowed path patterns: contentserver/api/*'
+'- proxy mappings: otrea-sd-saml2.opentext.net/otcs/llisapi.dll'
