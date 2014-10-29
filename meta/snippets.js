@@ -1,4 +1,5 @@
-// CONFIGURATION FOR SETTING OTAGTOKEN AND OTCSTICKET IN HEADERS!
+var app = angular.module('ContentServerWorkflow', ['ngCookies']);
+
 app.run(function ($cookies, $http, $rootScope, $window) {
 
     /** bind the url of the gateway to the $rootScope object */
@@ -19,16 +20,15 @@ app.run(function ($cookies, $http, $rootScope, $window) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         data: $.param({username: 'Admin', password: 'livelink'})
     }).success(function (res) {
-            $http.defaults.headers.common.otcsticket = res.ticket;
-        });
+        $http.defaults.headers.common.otcsticket = res.ticket;
+    });
 });
 
-// CONTENT SERVER SERVICE!
 app.service('contentServerService', function ($http, $rootScope, $q) {
     var self = this;
 
     self.node = {
-        parent_id: 2339529,
+        parent_id: 3430,
         type: 144,
         description: 'Initiating a workflow from the mobile client (appworks)'
     };
@@ -73,8 +73,6 @@ app.service('contentServerService', function ($http, $rootScope, $q) {
     }
 });
 
-
-// DIRECTIVE THAT BINDS TAP TO SERVICE THAT UPLOADS FILE!
 app.directive('csFileUpload', function (contentServerService, $timeout) {
     return {
         restrict: 'A',
@@ -139,5 +137,6 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
 </div>'
 
 // THE REVERSE PROXY SETTINGS
-'- allowed path patterns: contentserver/api/*'
-'- proxy mappings: otrea-sd-saml2.opentext.net/otcs/llisapi.dll'
+'THE REVERSE PROXY
+- allowed path patterns: contentserver/api/*
+- proxy mappings: contentserver=10.13.7.168/OTCS/cs.exe'
