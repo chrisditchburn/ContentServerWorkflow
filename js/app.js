@@ -15,16 +15,16 @@ app.run(function ($cookies, $http, $rootScope, $window) {
 
     /** get the otcs ticket by providing credentials to the content server */
     $http({
-        method:'POST',
+        method: 'POST',
         url: $rootScope._otagUrl +  '/contentserver/api/v1/auth',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        data: $.param({username: 'Admin', password: 'livelink'})
+        data: $.param({username: 'Admin', password: 'cnQgcdL33b'})
     }).success(function (res) {
         $http.defaults.headers.common.otcsticket = res.ticket;
     });
 });
 
-app.service('contentServerService', function ($http, $rootScope, $q) {
+app.service('contentServerService', function ($http, $rootScope) {
     var self = this;
 
     self.node = {
@@ -70,7 +70,7 @@ app.service('contentServerService', function ($http, $rootScope, $q) {
                 headers: {'Content-Type': undefined }
             });
         }
-    }
+    };
 });
 
 app.directive('csFileUpload', function (contentServerService, $timeout) {
