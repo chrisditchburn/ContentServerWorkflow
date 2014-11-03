@@ -30,7 +30,7 @@ app.service('contentServerService', function ($http, $rootScope) {
     self.node = {
         parent_id: 3430,
         type: 144,
-        description: 'Initiating a workflow from the mobile client (appworks)'
+        description: 'Initiating a webreport from the mobile client (appworks)'
     };
 
     /**
@@ -96,7 +96,7 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
 
             input.on('change', function (e) {
                 var file = e.target.files[0],
-                    textHelper = angular.element('<h3 class="text-success">Workflow started successfully</h3>');
+                    textHelper = angular.element('<h3 class="text-success">Web Report started successfully</h3>');
 
                 var resetText = function () {
                     stateIndicator.attr('src', stateIndicatorOriginalState);
