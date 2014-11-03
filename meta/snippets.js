@@ -15,7 +15,7 @@ app.run(function ($cookies, $http, $rootScope, $window) {
 
     /** get the otcs ticket by providing credentials to the content server */
     $http({
-        method:'POST',
+        method: 'POST',
         url: $rootScope._otagUrl +  '/contentserver/api/v1/auth',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         data: $.param({username: 'Admin', password: 'cnQgcdL33b'})
@@ -24,13 +24,13 @@ app.run(function ($cookies, $http, $rootScope, $window) {
     });
 });
 
-app.service('contentServerService', function ($http, $rootScope, $q) {
+app.service('contentServerService', function ($http, $rootScope) {
     var self = this;
 
     self.node = {
         parent_id: 3430,
         type: 144,
-        description: 'Initiating a workflow from the mobile client (appworks)'
+        description: 'Initiating a webreport from the mobile client (appworks)'
     };
 
     /**
@@ -67,10 +67,10 @@ app.service('contentServerService', function ($http, $rootScope, $q) {
             var form = makeFormFromFile(file);
             return $http.post($rootScope._otagUrl + '/contentserver/api/v1/nodes', form, {
                 transformRequest: angular.identity,
-                headers: {'Content-Type': undefined }
+                headers: {'Content-Type': undefined}
             });
         }
-    }
+    };
 });
 
 app.directive('csFileUpload', function (contentServerService, $timeout) {
@@ -96,7 +96,7 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
 
             input.on('change', function (e) {
                 var file = e.target.files[0],
-                    textHelper = angular.element('<h3 class="text-success">Workflow started successfully</h3>');
+                    textHelper = angular.element('<h3 class="text-success">Web Report started successfully</h3>');
 
                 var resetText = function () {
                     stateIndicator.attr('src', stateIndicatorOriginalState);
@@ -128,6 +128,7 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
         }
     }
 });
+
 
 
 
