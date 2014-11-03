@@ -140,15 +140,20 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
 // THE REVERSE PROXY SETTINGS
 'THE REVERSE PROXY
 - allowed path patterns: contentserver/api/*
-- proxy mappings: contentserver=10.13.7.168/OTCS/cs.exe'
+- proxy mappings: contentserver=10.13.7.168/OTCS/cs.exe
 
-// THE SERVER
-'- Content server Details
+- Content server Details
 	- 	username: Admin
 	-	password: cnQgcdL33b
-	- 	public ip: https://tprodapp01.emss.opentext.com/otcs/cs.exe
+	- 	public dns: https://tprodapp01.emss.opentext.com/otcs/cs.exe
+	-  	public ip: 142.75.251.168
 	- 	internal ip: 10.13.7.168
 	- 	administrator account for computer:
 		- 	id: tchadmin
 		- 	password: TCHontheCFE1!
+
+- OTAG details
+    - public dns: https://tprodapp01.emss.opentext.com:8443/gateway
+	- username: otag
+	- password: cnQgcdL33b!
 '

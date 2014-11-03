@@ -67,7 +67,7 @@ app.service('contentServerService', function ($http, $rootScope) {
             var form = makeFormFromFile(file);
             return $http.post($rootScope._otagUrl + '/contentserver/api/v1/nodes', form, {
                 transformRequest: angular.identity,
-                headers: {'Content-Type': undefined }
+                headers: {'Content-Type': undefined}
             });
         }
     };
