@@ -1,4 +1,4 @@
-var app = angular.module('ContentServerWorkflow', ['ngCookies']);
+var app = angular.module('ContentServerWebReports', ['ngCookies']);
 
 app.run(function ($cookies, $http, $rootScope, $window) {
 
@@ -13,20 +13,12 @@ app.run(function ($cookies, $http, $rootScope, $window) {
         $http.defaults.headers.common.otagtoken = $cookies.otagtoken;
     }
 
-    /** get the otcs ticket by providing credentials to the content server */
-    $http({
-        method: 'POST',
-        url: $rootScope._otagUrl +  '/contentserver/api/v1/auth',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        data: $.param({username: 'Admin', password: 'cnQgcdL33b'})
-    }).success(function (res) {
-        $http.defaults.headers.common.otcsticket = res.ticket;
-    });
 });
 
 app.service('contentServerService', function ($http, $rootScope) {
     var self = this;
 
+    /** details required to form the request to send to our static content server directory */
     self.node = {
         parent_id: 3430,
         type: 144,
@@ -79,9 +71,8 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
         link: function (scope, element) {
 
             var input = angular.element('<input type="file">'),
-                stateIndicator = element.find('img'),
-                stateIndicatorOriginalState = stateIndicator.attr('src');
-
+                icon = element.find('img'),
+                iconSrc = icon.attr('src');
             /**
              * define the actions that take place when this directive is clicked. this involves the following:
              *  - open the input for the user to select a file.
@@ -99,28 +90,28 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
                     textHelper = angular.element('<h3 class="text-success">Web Report started successfully</h3>');
 
                 var resetText = function () {
-                    stateIndicator.attr('src', stateIndicatorOriginalState);
+                    icon.attr('src', iconSrc);
                     textHelper.remove();
                 };
 
-                stateIndicator.attr('src', 'img/spinner.gif');
+                icon.attr('src', 'img/spinner.gif');
 
                 contentServerService.uploadFileAndInitiateWorkflow(file).success(function (data) {
                     element.append(textHelper);
                     $timeout(resetText, 3000);
                     input.val('');
                 }).error(function (err) {
-                        textHelper.text('Something went wrong: ' + err);
-                        textHelper.css('color', 'maroon');
-                        element.append(textHelper);
-                        $timeout(resetText, 3000);
-                        input.val('');
-                    });
+                    textHelper.text('Something went wrong: ' + err);
+                    textHelper.css('color', 'maroon');
+                    element.append(textHelper);
+                    $timeout(resetText, 3000);
+                    input.val('');
+                });
             });
 
             /** styling for the element provides feedback on user touch */
             element.bind('touchstart', function () {
-                element.css('background-color', '#9f9f9f');
+                element.css('background-color', '#BFBFBF');
             });
             element.bind('touchend', function () {
                 element.css('background-color', 'transparent');
@@ -128,9 +119,6 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
         }
     }
 });
-
-
-
 
 // THE HTML VIEW
 '<div cs-file-upload>
@@ -149,13 +137,13 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
 	- 	public dns: https://tprodapp01.emss.opentext.com/otcs/cs.exe
 
 - OTAG details
-	- username: otag
+	- username: Test1
 	- password: cnQgcdL33b!
-	- public dns: https://tprodapp01.emss.opentext.com:8443/gateway 
+	- public dns: https://tprodapp01.emss.opentext.com:8443/gateway 
 
 - VM details
-	- 	administrator account for computer:
-		- 	id: tchadmin
-		- 	password: TCHontheCFE1!
-		-  	public ip: 142.75.251.168
-		- 	internal ip: 10.13.7.168'
+	- 	administrator account for computer:
+		- 	id: tchadmin
+		- 	password: TCHontheCFE1!
+		-  	public ip: 142.75.251.168
+		- 	internal ip: 10.13.7.168'
