@@ -55,7 +55,7 @@ app.service('contentServerService', function ($http, $rootScope) {
     };
 
     return {
-        uploadFileAndInitiateWorkflow: function (file) {
+        uploadFileAndTriggerWebReport: function (file) {
             var form = makeFormFromFile(file);
             return $http.post($rootScope._otagUrl + '/contentserver/api/v1/nodes', form, {
                 transformRequest: angular.identity,
@@ -96,7 +96,7 @@ app.directive('csFileUpload', function (contentServerService, $timeout) {
 
                 icon.attr('src', 'img/spinner.gif');
 
-                contentServerService.uploadFileAndInitiateWorkflow(file).success(function (data) {
+                contentServerService.uploadFileAndTriggerWebReport(file).success(function (data) {
                     element.append(textHelper);
                     $timeout(resetText, 3000);
                     input.val('');
